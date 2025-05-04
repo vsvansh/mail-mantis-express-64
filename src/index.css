@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,21 +35,14 @@
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Gmail-specific colors */
+    --gmail-red: 4 90% 58%;
+    --gmail-blue: 217 89% 61%;
+    --gmail-green: 130 55% 45%;
+    --gmail-yellow: 36 100% 65%;
+    --gmail-light-gray: 0 0% 95%;
+    --gmail-hover: 210 20% 98%;
+    --gmail-selected: 211 100% 97%;
   }
 
   .dark {
@@ -79,14 +73,6 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -97,5 +83,44 @@
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .gmail-logo {
+    @apply h-8;
+  }
+  
+  .gmail-sidebar-item {
+    @apply flex items-center gap-4 px-6 py-2 rounded-r-full text-sm font-medium text-gray-700 hover:bg-[hsl(var(--gmail-hover))];
+  }
+  
+  .gmail-sidebar-item.active {
+    @apply bg-[hsl(var(--gmail-selected))] text-[hsl(var(--gmail-red))];
+  }
+  
+  .gmail-compose-btn {
+    @apply flex items-center gap-2 bg-[hsl(var(--gmail-light-gray))] hover:shadow-md transition-shadow px-6 py-4 rounded-2xl text-gray-700 font-medium;
+  }
+  
+  .gmail-tab {
+    @apply flex-1 flex items-center justify-center py-4 text-sm font-medium text-gray-600 hover:text-gray-800 border-b-2 border-transparent;
+  }
+  
+  .gmail-tab.active {
+    @apply text-[hsl(var(--gmail-blue))] border-[hsl(var(--gmail-blue))];
+  }
+  
+  .gmail-email-row {
+    @apply flex items-center px-4 py-2 border-b hover:shadow-sm cursor-pointer;
+  }
+  
+  .gmail-email-row:hover {
+    @apply bg-[hsl(var(--gmail-hover))];
+  }
+  
+  .gmail-icon-button {
+    @apply p-2 rounded-full hover:bg-gray-100;
   }
 }
