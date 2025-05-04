@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Menu, Search, Settings, HelpCircle, Sparkles, Grid3X3, Tune } from 'lucide-react';
+import { Menu, Search, Settings, HelpCircle, Sparkles, Grid3X3, SlidersHorizontal } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
@@ -31,7 +31,7 @@ const GmailHeader = ({ toggleSidebar }: GmailHeaderProps) => {
             className="pl-10 py-5 bg-[hsl(var(--gmail-light-gray))] border-none rounded-3xl w-full h-12"
           />
           <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-            <Tune className="h-5 w-5 text-gray-500" />
+            <SlidersHorizontal className="h-5 w-5 text-gray-500" />
           </div>
         </div>
       </div>
