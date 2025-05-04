@@ -37,12 +37,12 @@
 
     /* Gmail-specific colors */
     --gmail-red: 4 90% 58%;
-    --gmail-blue: 217 89% 61%;
+    --gmail-blue: 214 100% 43%;
     --gmail-green: 130 55% 45%;
     --gmail-yellow: 36 100% 65%;
-    --gmail-light-gray: 0 0% 95%;
-    --gmail-hover: 210 20% 98%;
-    --gmail-selected: 211 100% 97%;
+    --gmail-light-gray: 214 33% 94%;
+    --gmail-hover: 0 0% 95%;
+    --gmail-selected: 214 100% 97%;
   }
 
   .dark {
@@ -97,11 +97,11 @@
   }
   
   .gmail-sidebar-item.active {
-    @apply bg-[hsl(var(--gmail-selected))] text-[hsl(var(--gmail-red))];
+    @apply bg-[#d3e3fd] text-[#0b57d0] font-medium;
   }
   
   .gmail-compose-btn {
-    @apply flex items-center gap-2 bg-[hsl(var(--gmail-light-gray))] hover:shadow-md transition-shadow px-6 py-4 rounded-2xl text-gray-700 font-medium;
+    @apply flex items-center gap-2 bg-[#c2e7ff] hover:shadow-md transition-shadow px-6 py-4 rounded-2xl text-gray-700 font-medium;
   }
   
   .gmail-tab {
@@ -109,7 +109,7 @@
   }
   
   .gmail-tab.active {
-    @apply text-[hsl(var(--gmail-blue))] border-[hsl(var(--gmail-blue))];
+    @apply text-[#0b57d0] border-[#0b57d0] bg-[#eaf1fb];
   }
   
   .gmail-email-row {

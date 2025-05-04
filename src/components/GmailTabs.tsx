@@ -2,7 +2,6 @@
 import React from 'react';
 import { Inbox, Tag, Users, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface TabProps {
   icon: React.ReactNode;
@@ -14,7 +13,12 @@ interface TabProps {
 const Tab = ({ icon, label, active = false, onClick }: TabProps) => (
   <button
     onClick={onClick}
-    className={cn('gmail-tab', active && 'active')}
+    className={cn(
+      'flex-1 flex items-center justify-center py-3 text-sm font-medium border-b-2 transition-colors',
+      active 
+        ? 'text-[#0b57d0] border-[#0b57d0] bg-[#eaf1fb]' 
+        : 'text-gray-600 border-transparent hover:bg-gray-100'
+    )}
   >
     <div className="flex items-center gap-2">
       {icon}
