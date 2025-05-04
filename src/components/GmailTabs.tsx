@@ -16,8 +16,8 @@ const Tab = ({ icon, label, active = false, onClick }: TabProps) => (
     className={cn(
       'flex-1 flex items-center justify-center py-3 text-sm font-medium border-b-2 transition-colors',
       active 
-        ? 'text-[#0b57d0] border-[#0b57d0] bg-[#eaf1fb]' 
-        : 'text-gray-600 border-transparent hover:bg-gray-100'
+        ? 'text-[#0b57d0] dark:text-blue-400 border-[#0b57d0] dark:border-blue-400 bg-[#eaf1fb] dark:bg-blue-900/20' 
+        : 'text-gray-600 dark:text-gray-300 border-transparent hover:bg-gray-100 dark:hover:bg-gray-800'
     )}
   >
     <div className="flex items-center gap-2">
