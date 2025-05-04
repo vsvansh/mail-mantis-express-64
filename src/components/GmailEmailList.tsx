@@ -17,13 +17,21 @@ export interface Email {
 interface EmailRowProps {
   email: Email;
   toggleStar: (id: string) => void;
+  onEmailClick: (email: Email) => void;
 }
 
-const EmailRow = ({ email, toggleStar }: EmailRowProps) => (
-  <div className={`gmail-email-row ${!email.isRead ? 'font-medium' : ''} transition-all duration-200 hover:shadow-md hover:-translate-y-0.5`}>
+const EmailRow = ({ email, toggleStar, onEmailClick }: EmailRowProps) => (
+  <div 
+    className={`gmail-email-row ${!email.isRead ? 'font-medium' : ''} transition-all duration-200 hover:shadow-md hover:-translate-y-0.5`}
+    onClick={() => onEmailClick(email)}
+  >
     <div className="flex items-center w-full">
       <div className="flex items-center pr-4">
-        <Checkbox id={`email-${email.id}`} className="mr-2" />
+        <Checkbox 
+          id={`email-${email.id}`} 
+          className="mr-2"
+          onClick={(e) => e.stopPropagation()}
+        />
         <button 
           onClick={(e) => { 
             e.stopPropagation(); 
@@ -54,9 +62,10 @@ const EmailRow = ({ email, toggleStar }: EmailRowProps) => (
 interface GmailEmailListProps {
   emails: Email[];
   toggleStar: (id: string) => void;
+  onEmailClick: (email: Email) => void;
 }
 
-const GmailEmailList = ({ emails, toggleStar }: GmailEmailListProps) => {
+const GmailEmailList = ({ emails, toggleStar, onEmailClick }: GmailEmailListProps) => {
   return (
     <div className="flex-1 overflow-y-auto">
       <div className="flex justify-between items-center p-3 border-b">
@@ -83,7 +92,12 @@ const GmailEmailList = ({ emails, toggleStar }: GmailEmailListProps) => {
       
       <div>
         {emails.map((email) => (
-          <EmailRow key={email.id} email={email} toggleStar={toggleStar} />
+          <EmailRow 
+            key={email.id} 
+            email={email} 
+            toggleStar={toggleStar}
+            onEmailClick={onEmailClick}
+          />
         ))}
       </div>
     </div>

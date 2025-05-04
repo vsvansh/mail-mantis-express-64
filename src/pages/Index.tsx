@@ -1,18 +1,21 @@
+
 import React, { useState } from 'react';
 import GmailHeader from '@/components/GmailHeader';
 import GmailSidebar from '@/components/GmailSidebar';
 import GmailTabs from '@/components/GmailTabs';
 import GmailEmailList from '@/components/GmailEmailList';
+import EmailDetail from '@/components/EmailDetail';
+import RightSidebar from '@/components/RightSidebar';
 import ComposeModal from '@/components/ComposeModal';
 import { mockEmails, promotionsEmails, socialEmails, updatesEmails, sentEmails } from '@/data/mockEmails';
 import { Email } from '@/components/GmailEmailList';
 import { Pencil } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
   // State
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [rightSidebarOpen, setRightSidebarOpen] = useState(true);
   const [activeLabel, setActiveLabel] = useState('inbox');
   const [activeTab, setActiveTab] = useState('primary');
   const [composeOpen, setComposeOpen] = useState(false);
@@ -21,6 +24,7 @@ const Index = () => {
   const [social, setSocial] = useState<Email[]>(socialEmails);
   const [updates, setUpdates] = useState<Email[]>(updatesEmails);
   const [sent, setSent] = useState<Email[]>(sentEmails);
+  const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
   const { toast } = useToast();
 
   // Toggle sidebar visibility
@@ -92,6 +96,34 @@ const Index = () => {
     setComposeOpen(false);
   };
 
+  // Handle email click to view details
+  const handleEmailClick = (email: Email) => {
+    setSelectedEmail(email);
+    
+    // Mark email as read
+    const updateEmailAsRead = (emails: Email[]) => 
+      emails.map(e => e.id === email.id ? { ...e, isRead: true } : e);
+    
+    // Update the correct email list
+    switch (activeTab) {
+      case 'primary':
+        setEmails(updateEmailAsRead(emails));
+        break;
+      case 'promotions':
+        setPromotions(updateEmailAsRead(promotions));
+        break;
+      case 'social':
+        setSocial(updateEmailAsRead(social));
+        break;
+      case 'updates':
+        setUpdates(updateEmailAsRead(updates));
+        break;
+      case 'sent':
+        setSent(updateEmailAsRead(sent));
+        break;
+    }
+  };
+
   // Get current emails based on active tab and label
   const getCurrentEmails = () => {
     // If we're in the sent folder, show sent emails
@@ -124,7 +156,7 @@ const Index = () => {
   }, [activeLabel]);
 
   return (
-    <div className="h-screen flex flex-col bg-white">
+    <div className="h-screen flex flex-col bg-white dark:bg-gray-900">
       {/* Header */}
       <GmailHeader toggleSidebar={toggleSidebar} />
 
@@ -145,15 +177,29 @@ const Index = () => {
             <GmailTabs activeTab={activeTab} setActiveTab={setActiveTab} />
           )}
 
-          {/* Email List */}
-          <GmailEmailList emails={getCurrentEmails()} toggleStar={toggleStar} />
+          {/* Show email list or email detail */}
+          {selectedEmail ? (
+            <EmailDetail email={selectedEmail} onClose={() => setSelectedEmail(null)} />
+          ) : (
+            <GmailEmailList 
+              emails={getCurrentEmails()} 
+              toggleStar={toggleStar} 
+              onEmailClick={handleEmailClick}
+            />
+          )}
         </div>
+
+        {/* Right Sidebar */}
+        <RightSidebar 
+          isOpen={rightSidebarOpen} 
+          onClose={() => setRightSidebarOpen(false)}
+        />
       </div>
 
       {/* Compose Button (Mobile) */}
       <div className="fixed bottom-4 right-4 lg:hidden z-10">
         <button 
-          className="bg-white shadow-lg rounded-full p-4"
+          className="bg-white dark:bg-gray-800 shadow-lg rounded-full p-4"
           onClick={() => setComposeOpen(true)}
         >
           <Pencil size={24} />

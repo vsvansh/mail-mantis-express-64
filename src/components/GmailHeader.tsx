@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Menu, Search, Settings, HelpCircle, Sparkles, Grid3X3, SlidersHorizontal, MessageSquare, Moon, Sun } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -22,8 +22,8 @@ const GmailHeader = ({ toggleSidebar }: GmailHeaderProps) => {
   const { theme, setTheme } = useTheme();
   
   return (
-    <header className="flex items-center px-4 py-2 border-b bg-background sticky top-0 z-10">
-      <div className="flex items-center gap-4">
+    <header className="flex items-center px-2 py-2 border-b bg-background sticky top-0 z-10">
+      <div className="flex items-center gap-2">
         <button onClick={toggleSidebar} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
           <Menu size={20} />
         </button>
@@ -36,7 +36,7 @@ const GmailHeader = ({ toggleSidebar }: GmailHeaderProps) => {
         </div>
       </div>
       
-      <div className="flex-1 max-w-2xl mx-4">
+      <div className="flex-1 max-w-2xl mx-6">
         <div className="relative flex items-center">
           <div className="absolute inset-y-0 left-3 flex items-center">
             <Search className="h-5 w-5 text-gray-500" />
@@ -52,23 +52,16 @@ const GmailHeader = ({ toggleSidebar }: GmailHeaderProps) => {
         </div>
       </div>
       
-      <div className="flex items-center">
-        {/* Chatbot Button with "New" Label */}
-        <div className="relative mx-1">
-          <button className="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
-            <MessageSquare size={20} className="text-gray-600 dark:text-gray-300" />
-          </button>
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">New</span>
-        </div>
-        
-        <button className="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 mx-1">
+      <div className="flex items-center space-x-1">
+        {/* Support Button */}
+        <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
           <HelpCircle size={20} className="text-gray-600 dark:text-gray-300" />
         </button>
         
         {/* Settings Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 mx-1">
+            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
               <Settings size={20} className="text-gray-600 dark:text-gray-300" />
             </button>
           </DropdownMenuTrigger>
@@ -90,7 +83,6 @@ const GmailHeader = ({ toggleSidebar }: GmailHeaderProps) => {
                     <Sun className="h-[1.1rem] w-[1.1rem]" />
                   )}
                 </Toggle>
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">New</span>
               </div>
             </DropdownMenuItem>
             <DropdownMenuItem>Quick Settings</DropdownMenuItem>
@@ -98,13 +90,18 @@ const GmailHeader = ({ toggleSidebar }: GmailHeaderProps) => {
           </DropdownMenuContent>
         </DropdownMenu>
         
-        <button className="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 mx-1">
+        {/* Sparkles button */}
+        <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
           <Sparkles size={20} className="text-gray-600 dark:text-gray-300" />
         </button>
-        <button className="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 mx-1">
+        
+        {/* Apps button */}
+        <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
           <Grid3X3 size={20} className="text-gray-600 dark:text-gray-300" />
         </button>
-        <Avatar className="w-8 h-8 ml-2">
+        
+        {/* Avatar */}
+        <Avatar className="w-8 h-8 ml-1">
           <AvatarFallback className="bg-blue-500 text-white">V</AvatarFallback>
         </Avatar>
       </div>

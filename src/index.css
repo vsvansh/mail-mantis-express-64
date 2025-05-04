@@ -128,4 +128,8 @@
   .gmail-icon-button {
     @apply p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center justify-center;
   }
+
+  .email-content p {
+    @apply text-gray-800 dark:text-gray-300 leading-relaxed;
+  }
 }
