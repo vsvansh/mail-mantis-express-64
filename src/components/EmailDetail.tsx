@@ -1,8 +1,10 @@
+
 import React from 'react';
 import { ArrowLeft, Archive, Clock, Delete, MoreVertical, MoveRight, Printer, Star, Undo } from 'lucide-react';
 import { Email } from './GmailEmailList';
 import { Avatar } from './ui/avatar';
 import { Button } from './ui/button';
+import { Tag } from 'lucide-react'; // Import Tag icon as a replacement for Label
 
 interface EmailDetailProps {
   email: Email | null;
@@ -33,7 +35,7 @@ const EmailDetail: React.FC<EmailDetailProps> = ({ email, onClose }) => {
             <MoveRight size={20} />
           </Button>
           <Button variant="ghost" size="icon">
-            <Label size={20} />
+            <Tag size={20} />
           </Button>
           <Button variant="ghost" size="icon">
             <MoreVertical size={20} />
