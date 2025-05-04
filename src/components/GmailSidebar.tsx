@@ -29,9 +29,10 @@ interface GmailSidebarProps {
   isOpen: boolean;
   setActiveLabel: (label: string) => void;
   activeLabel: string;
+  onComposeClick: () => void;
 }
 
-const GmailSidebar = ({ isOpen, setActiveLabel, activeLabel }: GmailSidebarProps) => {
+const GmailSidebar = ({ isOpen, setActiveLabel, activeLabel, onComposeClick }: GmailSidebarProps) => {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   
   if (!isOpen) return null;
@@ -39,7 +40,7 @@ const GmailSidebar = ({ isOpen, setActiveLabel, activeLabel }: GmailSidebarProps
   return (
     <div className="w-64 min-h-[calc(100vh-64px)] border-r flex flex-col">
       <div className="p-4">
-        <button className="gmail-compose-btn">
+        <button className="gmail-compose-btn" onClick={onComposeClick}>
           <Pencil size={18} />
           <span>Compose</span>
         </button>

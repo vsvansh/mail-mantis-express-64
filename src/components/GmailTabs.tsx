@@ -33,6 +33,11 @@ interface GmailTabsProps {
 }
 
 const GmailTabs = ({ activeTab, setActiveTab }: GmailTabsProps) => {
+  // If we're in the sent tab, don't render the regular tabs
+  if (activeTab === 'sent') {
+    return null;
+  }
+  
   return (
     <div className="flex border-b">
       <Tab

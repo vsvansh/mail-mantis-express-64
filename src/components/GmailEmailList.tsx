@@ -20,7 +20,7 @@ interface EmailRowProps {
 }
 
 const EmailRow = ({ email, toggleStar }: EmailRowProps) => (
-  <div className={`gmail-email-row ${!email.isRead ? 'font-medium' : ''}`}>
+  <div className={`gmail-email-row ${!email.isRead ? 'font-medium' : ''} transition-all duration-200 hover:shadow-md hover:-translate-y-0.5`}>
     <div className="flex items-center w-full">
       <div className="flex items-center pr-4">
         <Checkbox id={`email-${email.id}`} className="mr-2" />

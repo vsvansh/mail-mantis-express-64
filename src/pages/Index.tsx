@@ -1,13 +1,14 @@
-
 import React, { useState } from 'react';
 import GmailHeader from '@/components/GmailHeader';
 import GmailSidebar from '@/components/GmailSidebar';
 import GmailTabs from '@/components/GmailTabs';
 import GmailEmailList from '@/components/GmailEmailList';
 import ComposeModal from '@/components/ComposeModal';
-import { mockEmails, promotionsEmails, socialEmails, updatesEmails } from '@/data/mockEmails';
+import { mockEmails, promotionsEmails, socialEmails, updatesEmails, sentEmails } from '@/data/mockEmails';
 import { Email } from '@/components/GmailEmailList';
 import { Pencil } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { Toaster } from '@/components/ui/toaster';
 
 const Index = () => {
   // State
@@ -19,6 +20,8 @@ const Index = () => {
   const [promotions, setPromotions] = useState<Email[]>(promotionsEmails);
   const [social, setSocial] = useState<Email[]>(socialEmails);
   const [updates, setUpdates] = useState<Email[]>(updatesEmails);
+  const [sent, setSent] = useState<Email[]>(sentEmails);
+  const { toast } = useToast();
 
   // Toggle sidebar visibility
   const toggleSidebar = () => {
@@ -48,6 +51,10 @@ const Index = () => {
         targetEmails = updates;
         setTargetEmails = setUpdates;
         break;
+      case 'sent':
+        targetEmails = sent;
+        setTargetEmails = setSent;
+        break;
       default:
         targetEmails = emails;
         setTargetEmails = setEmails;
@@ -61,8 +68,38 @@ const Index = () => {
     );
   };
 
-  // Get current emails based on active tab
+  // Handle sending an email
+  const handleSendEmail = (email: {to: string; subject: string; body: string}) => {
+    const newEmail: Email = {
+      id: `sent${sent.length + 1}`,
+      sender: 'Me',
+      subject: email.subject || '(no subject)',
+      preview: email.body.substring(0, 50) + (email.body.length > 50 ? '...' : ''),
+      isStarred: false,
+      isRead: true,
+      date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setSent([newEmail, ...sent]);
+    
+    // Show toast notification
+    toast({
+      title: 'Email sent',
+      description: 'Your message has been sent successfully.',
+    });
+
+    // Close the compose modal
+    setComposeOpen(false);
+  };
+
+  // Get current emails based on active tab and label
   const getCurrentEmails = () => {
+    // If we're in the sent folder, show sent emails
+    if (activeLabel === 'sent') {
+      return sent;
+    }
+    
+    // Otherwise show emails from the active tab
     switch (activeTab) {
       case 'primary':
         return emails;
@@ -77,6 +114,15 @@ const Index = () => {
     }
   };
 
+  // Update activeTab when active label changes to 'sent'
+  React.useEffect(() => {
+    if (activeLabel === 'sent') {
+      setActiveTab('sent');
+    } else if (activeTab === 'sent') {
+      setActiveTab('primary');
+    }
+  }, [activeLabel]);
+
   return (
     <div className="h-screen flex flex-col bg-white">
       {/* Header */}
@@ -89,12 +135,15 @@ const Index = () => {
           isOpen={sidebarOpen} 
           setActiveLabel={setActiveLabel}
           activeLabel={activeLabel}
+          onComposeClick={() => setComposeOpen(true)}
         />
 
         {/* Email Content */}
         <div className="flex-1 flex flex-col overflow-hidden">
-          {/* Tabs */}
-          <GmailTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+          {/* Tabs - Only show if not in sent folder */}
+          {activeLabel !== 'sent' && (
+            <GmailTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+          )}
 
           {/* Email List */}
           <GmailEmailList emails={getCurrentEmails()} toggleStar={toggleStar} />
@@ -112,7 +161,11 @@ const Index = () => {
       </div>
 
       {/* Compose Modal */}
-      <ComposeModal isOpen={composeOpen} onClose={() => setComposeOpen(false)} />
+      <ComposeModal 
+        isOpen={composeOpen} 
+        onClose={() => setComposeOpen(false)} 
+        onSendEmail={handleSendEmail}
+      />
     </div>
   );
 };
