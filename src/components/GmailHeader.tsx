@@ -22,8 +22,8 @@ const GmailHeader = ({ toggleSidebar }: GmailHeaderProps) => {
   const { theme, setTheme } = useTheme();
   
   return (
-    <header className="flex items-center px-2 py-2 border-b bg-background sticky top-0 z-10">
-      <div className="flex items-center gap-2">
+    <header className="flex items-center px-4 py-2 border-b bg-background sticky top-0 z-10">
+      <div className="flex items-center gap-4 mr-4">
         <button onClick={toggleSidebar} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
           <Menu size={20} />
         </button>
@@ -36,7 +36,7 @@ const GmailHeader = ({ toggleSidebar }: GmailHeaderProps) => {
         </div>
       </div>
       
-      <div className="flex-1 max-w-2xl mx-6">
+      <div className="flex-1 max-w-3xl mx-6">
         <div className="relative flex items-center">
           <div className="absolute inset-y-0 left-3 flex items-center">
             <Search className="h-5 w-5 text-gray-500" />
@@ -52,7 +52,7 @@ const GmailHeader = ({ toggleSidebar }: GmailHeaderProps) => {
         </div>
       </div>
       
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center gap-2 ml-6">
         {/* Support Button */}
         <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
           <HelpCircle size={20} className="text-gray-600 dark:text-gray-300" />
