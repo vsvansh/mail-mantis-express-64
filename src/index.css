@@ -121,6 +121,6 @@
   }
   
   .gmail-icon-button {
-    @apply p-2 rounded-full hover:bg-gray-100;
+    @apply p-2.5 rounded-full hover:bg-gray-100 flex items-center justify-center;
   }
 }

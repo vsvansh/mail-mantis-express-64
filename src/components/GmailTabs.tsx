@@ -2,6 +2,7 @@
 import React from 'react';
 import { Inbox, Tag, Users, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface TabProps {
   icon: React.ReactNode;

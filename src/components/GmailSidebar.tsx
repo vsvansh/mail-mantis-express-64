@@ -1,7 +1,8 @@
 
-import React from 'react';
-import { Inbox, Star, Clock, Send, FileText, Trash, ChevronDown, Plus, Paperclip } from 'lucide-react';
+import React, { useState } from 'react';
+import { Inbox, Star, Clock, Send, FileText, Trash, ChevronDown, ChevronUp, Pencil, AlertCircle, MessageSquare, Calendar, Mail, AlertOctagon, Tag, Settings, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 interface SidebarItemProps {
   icon: React.ReactNode;
@@ -31,13 +32,15 @@ interface GmailSidebarProps {
 }
 
 const GmailSidebar = ({ isOpen, setActiveLabel, activeLabel }: GmailSidebarProps) => {
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
+  
   if (!isOpen) return null;
   
   return (
     <div className="w-64 min-h-[calc(100vh-64px)] border-r flex flex-col">
       <div className="p-4">
         <button className="gmail-compose-btn">
-          <Paperclip size={18} />
+          <Pencil size={18} />
           <span>Compose</span>
         </button>
       </div>
@@ -75,12 +78,73 @@ const GmailSidebar = ({ isOpen, setActiveLabel, activeLabel }: GmailSidebarProps
           active={activeLabel === 'drafts'} 
           onClick={() => setActiveLabel('drafts')}
         />
-        <SidebarItem 
-          icon={<ChevronDown size={18} />} 
-          label="More"
-          active={activeLabel === 'more'} 
-          onClick={() => setActiveLabel('more')}
-        />
+        
+        <Collapsible open={isMoreOpen} onOpenChange={setIsMoreOpen}>
+          <CollapsibleTrigger className="w-full">
+            <SidebarItem 
+              icon={isMoreOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />} 
+              label={isMoreOpen ? "Less" : "More"}
+              active={activeLabel === 'more'} 
+            />
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <SidebarItem 
+              icon={<AlertCircle size={18} />} 
+              label="Important"
+              active={activeLabel === 'important'} 
+              onClick={() => setActiveLabel('important')}
+            />
+            <SidebarItem 
+              icon={<MessageSquare size={18} />} 
+              label="Chats"
+              active={activeLabel === 'chats'} 
+              onClick={() => setActiveLabel('chats')}
+            />
+            <SidebarItem 
+              icon={<Calendar size={18} />} 
+              label="Scheduled"
+              active={activeLabel === 'scheduled'} 
+              onClick={() => setActiveLabel('scheduled')}
+            />
+            <SidebarItem 
+              icon={<Mail size={18} />} 
+              label="All Mail"
+              active={activeLabel === 'allmail'} 
+              onClick={() => setActiveLabel('allmail')}
+            />
+            <SidebarItem 
+              icon={<AlertOctagon size={18} />} 
+              label="Spam"
+              count={3}
+              active={activeLabel === 'spam'} 
+              onClick={() => setActiveLabel('spam')}
+            />
+            <SidebarItem 
+              icon={<Trash size={18} />} 
+              label="Trash"
+              active={activeLabel === 'trash'} 
+              onClick={() => setActiveLabel('trash')}
+            />
+            <SidebarItem 
+              icon={<Tag size={18} />} 
+              label="Categories"
+              active={activeLabel === 'categories'} 
+              onClick={() => setActiveLabel('categories')}
+            />
+            <SidebarItem 
+              icon={<Settings size={18} />} 
+              label="Manage labels"
+              active={activeLabel === 'managelabels'} 
+              onClick={() => setActiveLabel('managelabels')}
+            />
+            <SidebarItem 
+              icon={<Plus size={18} />} 
+              label="Create new label"
+              active={activeLabel === 'createlabel'} 
+              onClick={() => setActiveLabel('createlabel')}
+            />
+          </CollapsibleContent>
+        </Collapsible>
       </div>
       
       <div className="p-4 border-t">
