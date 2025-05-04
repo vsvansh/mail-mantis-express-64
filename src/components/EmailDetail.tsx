@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { ArrowLeft, Archive, Clock, Delete, Label, MoreVertical, MoveRight, Printer, Star, Undo } from 'lucide-react';
+import { ArrowLeft, Archive, Clock, Delete, MoreVertical, MoveRight, Printer, Star, Undo } from 'lucide-react';
 import { Email } from './GmailEmailList';
 import { Avatar } from './ui/avatar';
 import { Button } from './ui/button';
